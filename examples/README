@@ -1,0 +1,14 @@
+directories:
+    examples:
+        small: 10 small problems
+        medium: 10 medium problems
+        complex: 10 complex problems
+        for each tests, there are 3 files.
+            constraint.json -- the problem in json format, which is the input file of your executible 
+            constraint.p -- the problem in SystemVeriflog format, which is for your reading
+            result.json -- the example output file. Your executible should output a similar file.
+scripts:
+    evalcns: the script is to check the correctness and distribution of the assignments and calculate a score. "evalcns -h" prints its detailed usage.
+
+others:
+    operators_list.txt: the operator types used in these tests

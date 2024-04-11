@@ -1,0 +1,702 @@
+{"assignment_list": [
+[
+{"value": "0"},
+{"value": "42d"},
+{"value": "36de"},
+{"value": "2ebb"},
+{"value": "91"}
+],
+[
+{"value": "0"},
+{"value": "b5c"},
+{"value": "1a3b"},
+{"value": "18c4"},
+{"value": "58"}
+],
+[
+{"value": "0"},
+{"value": "4f5"},
+{"value": "1fff"},
+{"value": "2ce7"},
+{"value": "d"}
+],
+[
+{"value": "0"},
+{"value": "1270"},
+{"value": "1dbf"},
+{"value": "a1"},
+{"value": "4f"}
+],
+[
+{"value": "0"},
+{"value": "1900"},
+{"value": "b7d"},
+{"value": "3c9a"},
+{"value": "19"}
+],
+[
+{"value": "0"},
+{"value": "1db7"},
+{"value": "113b"},
+{"value": "15fe"},
+{"value": "11"}
+],
+[
+{"value": "0"},
+{"value": "1c2"},
+{"value": "36e6"},
+{"value": "373e"},
+{"value": "7b"}
+],
+[
+{"value": "0"},
+{"value": "16c2"},
+{"value": "ba0"},
+{"value": "3816"},
+{"value": "75"}
+],
+[
+{"value": "0"},
+{"value": "8a1"},
+{"value": "1161"},
+{"value": "1e00"},
+{"value": "b6"}
+],
+[
+{"value": "0"},
+{"value": "1e5d"},
+{"value": "16ee"},
+{"value": "2a8b"},
+{"value": "92"}
+],
+[
+{"value": "0"},
+{"value": "999"},
+{"value": "1bb2"},
+{"value": "11dc"},
+{"value": "ef"}
+],
+[
+{"value": "0"},
+{"value": "1d2b"},
+{"value": "2e56"},
+{"value": "30ba"},
+{"value": "b5"}
+],
+[
+{"value": "0"},
+{"value": "155c"},
+{"value": "388b"},
+{"value": "d60"},
+{"value": "f5"}
+],
+[
+{"value": "0"},
+{"value": "1780"},
+{"value": "335e"},
+{"value": "3691"},
+{"value": "f1"}
+],
+[
+{"value": "0"},
+{"value": "15f5"},
+{"value": "1e97"},
+{"value": "357b"},
+{"value": "46"}
+],
+[
+{"value": "0"},
+{"value": "5cb"},
+{"value": "2ffb"},
+{"value": "178d"},
+{"value": "c8"}
+],
+[
+{"value": "0"},
+{"value": "15e6"},
+{"value": "2adf"},
+{"value": "1620"},
+{"value": "1a"}
+],
+[
+{"value": "0"},
+{"value": "871"},
+{"value": "279b"},
+{"value": "49d"},
+{"value": "9e"}
+],
+[
+{"value": "0"},
+{"value": "e4a"},
+{"value": "1aff"},
+{"value": "3b9f"},
+{"value": "ed"}
+],
+[
+{"value": "0"},
+{"value": "361"},
+{"value": "38c3"},
+{"value": "98a"},
+{"value": "2f"}
+],
+[
+{"value": "0"},
+{"value": "1294"},
+{"value": "279d"},
+{"value": "2d69"},
+{"value": "d8"}
+],
+[
+{"value": "0"},
+{"value": "632"},
+{"value": "11b5"},
+{"value": "216c"},
+{"value": "e"}
+],
+[
+{"value": "0"},
+{"value": "1aee"},
+{"value": "2069"},
+{"value": "179d"},
+{"value": "cb"}
+],
+[
+{"value": "0"},
+{"value": "7de"},
+{"value": "210f"},
+{"value": "2fec"},
+{"value": "80"}
+],
+[
+{"value": "0"},
+{"value": "150d"},
+{"value": "2657"},
+{"value": "377c"},
+{"value": "48"}
+],
+[
+{"value": "0"},
+{"value": "61b"},
+{"value": "2c45"},
+{"value": "25ce"},
+{"value": "86"}
+],
+[
+{"value": "0"},
+{"value": "ce5"},
+{"value": "30f6"},
+{"value": "345b"},
+{"value": "7d"}
+],
+[
+{"value": "0"},
+{"value": "1a0e"},
+{"value": "24a"},
+{"value": "194f"},
+{"value": "6d"}
+],
+[
+{"value": "0"},
+{"value": "1417"},
+{"value": "69"},
+{"value": "290a"},
+{"value": "fa"}
+],
+[
+{"value": "0"},
+{"value": "795"},
+{"value": "22a3"},
+{"value": "15fc"},
+{"value": "a7"}
+],
+[
+{"value": "0"},
+{"value": "11a9"},
+{"value": "27a4"},
+{"value": "1865"},
+{"value": "f8"}
+],
+[
+{"value": "0"},
+{"value": "24"},
+{"value": "13b1"},
+{"value": "239c"},
+{"value": "ec"}
+],
+[
+{"value": "0"},
+{"value": "136c"},
+{"value": "326c"},
+{"value": "3a17"},
+{"value": "d8"}
+],
+[
+{"value": "0"},
+{"value": "d29"},
+{"value": "2693"},
+{"value": "1cfd"},
+{"value": "f5"}
+],
+[
+{"value": "0"},
+{"value": "1bec"},
+{"value": "e87"},
+{"value": "2422"},
+{"value": "5e"}
+],
+[
+{"value": "0"},
+{"value": "96c"},
+{"value": "f78"},
+{"value": "3277"},
+{"value": "e7"}
+],
+[
+{"value": "0"},
+{"value": "19a9"},
+{"value": "18d5"},
+{"value": "de2"},
+{"value": "c3"}
+],
+[
+{"value": "0"},
+{"value": "1b5d"},
+{"value": "3632"},
+{"value": "1549"},
+{"value": "37"}
+],
+[
+{"value": "0"},
+{"value": "14ac"},
+{"value": "28a8"},
+{"value": "37a8"},
+{"value": "71"}
+],
+[
+{"value": "0"},
+{"value": "1991"},
+{"value": "2e56"},
+{"value": "cf7"},
+{"value": "8e"}
+],
+[
+{"value": "0"},
+{"value": "15e3"},
+{"value": "1ade"},
+{"value": "357f"},
+{"value": "49"}
+],
+[
+{"value": "0"},
+{"value": "621"},
+{"value": "22cf"},
+{"value": "16ae"},
+{"value": "10"}
+],
+[
+{"value": "0"},
+{"value": "15f0"},
+{"value": "5b"},
+{"value": "1fdd"},
+{"value": "c7"}
+],
+[
+{"value": "0"},
+{"value": "413"},
+{"value": "48"},
+{"value": "3d77"},
+{"value": "36"}
+],
+[
+{"value": "0"},
+{"value": "1e49"},
+{"value": "1a75"},
+{"value": "246c"},
+{"value": "8e"}
+],
+[
+{"value": "0"},
+{"value": "1070"},
+{"value": "3215"},
+{"value": "3703"},
+{"value": "2f"}
+],
+[
+{"value": "0"},
+{"value": "17ef"},
+{"value": "29cf"},
+{"value": "12f3"},
+{"value": "9a"}
+],
+[
+{"value": "0"},
+{"value": "13b1"},
+{"value": "2f52"},
+{"value": "87c"},
+{"value": "f7"}
+],
+[
+{"value": "0"},
+{"value": "a2f"},
+{"value": "3500"},
+{"value": "662"},
+{"value": "7c"}
+],
+[
+{"value": "0"},
+{"value": "1fc3"},
+{"value": "2d5b"},
+{"value": "166d"},
+{"value": "c0"}
+],
+[
+{"value": "0"},
+{"value": "1c5"},
+{"value": "15c"},
+{"value": "e10"},
+{"value": "35"}
+],
+[
+{"value": "0"},
+{"value": "1604"},
+{"value": "2140"},
+{"value": "1aaf"},
+{"value": "81"}
+],
+[
+{"value": "0"},
+{"value": "a77"},
+{"value": "357d"},
+{"value": "924"},
+{"value": "be"}
+],
+[
+{"value": "0"},
+{"value": "1142"},
+{"value": "8fc"},
+{"value": "15b6"},
+{"value": "46"}
+],
+[
+{"value": "0"},
+{"value": "14b6"},
+{"value": "3896"},
+{"value": "8a9"},
+{"value": "cd"}
+],
+[
+{"value": "0"},
+{"value": "1c58"},
+{"value": "4a9"},
+{"value": "20ab"},
+{"value": "44"}
+],
+[
+{"value": "0"},
+{"value": "1cf3"},
+{"value": "15e9"},
+{"value": "1335"},
+{"value": "5a"}
+],
+[
+{"value": "0"},
+{"value": "112a"},
+{"value": "ad3"},
+{"value": "bdf"},
+{"value": "dd"}
+],
+[
+{"value": "0"},
+{"value": "743"},
+{"value": "32de"},
+{"value": "1a10"},
+{"value": "cd"}
+],
+[
+{"value": "0"},
+{"value": "d60"},
+{"value": "c8e"},
+{"value": "1e84"},
+{"value": "5d"}
+],
+[
+{"value": "0"},
+{"value": "4ed"},
+{"value": "d56"},
+{"value": "a9e"},
+{"value": "bd"}
+],
+[
+{"value": "0"},
+{"value": "e07"},
+{"value": "d41"},
+{"value": "1cb1"},
+{"value": "2a"}
+],
+[
+{"value": "0"},
+{"value": "cc8"},
+{"value": "1c14"},
+{"value": "1b6a"},
+{"value": "56"}
+],
+[
+{"value": "0"},
+{"value": "7f5"},
+{"value": "2bba"},
+{"value": "2765"},
+{"value": "c8"}
+],
+[
+{"value": "0"},
+{"value": "ff4"},
+{"value": "38bb"},
+{"value": "3cbc"},
+{"value": "3f"}
+],
+[
+{"value": "0"},
+{"value": "1dc0"},
+{"value": "25b0"},
+{"value": "11e2"},
+{"value": "f9"}
+],
+[
+{"value": "0"},
+{"value": "1cbc"},
+{"value": "670"},
+{"value": "473"},
+{"value": "6c"}
+],
+[
+{"value": "0"},
+{"value": "91e"},
+{"value": "3a5a"},
+{"value": "3e75"},
+{"value": "9f"}
+],
+[
+{"value": "0"},
+{"value": "bcb"},
+{"value": "dd7"},
+{"value": "2444"},
+{"value": "4"}
+],
+[
+{"value": "0"},
+{"value": "25e"},
+{"value": "dcd"},
+{"value": "d38"},
+{"value": "6c"}
+],
+[
+{"value": "0"},
+{"value": "d99"},
+{"value": "1eaf"},
+{"value": "387b"},
+{"value": "37"}
+],
+[
+{"value": "0"},
+{"value": "f6"},
+{"value": "3c4b"},
+{"value": "298f"},
+{"value": "d7"}
+],
+[
+{"value": "0"},
+{"value": "14b6"},
+{"value": "8e8"},
+{"value": "3d91"},
+{"value": "2c"}
+],
+[
+{"value": "0"},
+{"value": "ed9"},
+{"value": "11fc"},
+{"value": "12d2"},
+{"value": "1d"}
+],
+[
+{"value": "0"},
+{"value": "1a9a"},
+{"value": "1fb7"},
+{"value": "14a7"},
+{"value": "99"}
+],
+[
+{"value": "0"},
+{"value": "885"},
+{"value": "7d1"},
+{"value": "39d5"},
+{"value": "43"}
+],
+[
+{"value": "0"},
+{"value": "822"},
+{"value": "362b"},
+{"value": "ecf"},
+{"value": "1d"}
+],
+[
+{"value": "0"},
+{"value": "11ad"},
+{"value": "6dd"},
+{"value": "237d"},
+{"value": "af"}
+],
+[
+{"value": "0"},
+{"value": "e29"},
+{"value": "2ace"},
+{"value": "1ac"},
+{"value": "8e"}
+],
+[
+{"value": "0"},
+{"value": "b87"},
+{"value": "f86"},
+{"value": "24cf"},
+{"value": "c4"}
+],
+[
+{"value": "0"},
+{"value": "1f94"},
+{"value": "2d11"},
+{"value": "3568"},
+{"value": "47"}
+],
+[
+{"value": "0"},
+{"value": "1df1"},
+{"value": "33fc"},
+{"value": "357a"},
+{"value": "39"}
+],
+[
+{"value": "0"},
+{"value": "1747"},
+{"value": "2f95"},
+{"value": "230e"},
+{"value": "a6"}
+],
+[
+{"value": "0"},
+{"value": "1fa2"},
+{"value": "37bd"},
+{"value": "171"},
+{"value": "de"}
+],
+[
+{"value": "0"},
+{"value": "824"},
+{"value": "102b"},
+{"value": "778"},
+{"value": "ee"}
+],
+[
+{"value": "0"},
+{"value": "991"},
+{"value": "2b55"},
+{"value": "20f6"},
+{"value": "7e"}
+],
+[
+{"value": "0"},
+{"value": "1482"},
+{"value": "7dc"},
+{"value": "265"},
+{"value": "f"}
+],
+[
+{"value": "0"},
+{"value": "501"},
+{"value": "22cd"},
+{"value": "288f"},
+{"value": "c5"}
+],
+[
+{"value": "0"},
+{"value": "b3c"},
+{"value": "3a8f"},
+{"value": "1fa5"},
+{"value": "82"}
+],
+[
+{"value": "0"},
+{"value": "e3a"},
+{"value": "2b34"},
+{"value": "2b6"},
+{"value": "63"}
+],
+[
+{"value": "0"},
+{"value": "1232"},
+{"value": "1c61"},
+{"value": "2df4"},
+{"value": "47"}
+],
+[
+{"value": "0"},
+{"value": "d3b"},
+{"value": "2f73"},
+{"value": "3016"},
+{"value": "40"}
+],
+[
+{"value": "0"},
+{"value": "db9"},
+{"value": "48c"},
+{"value": "3f69"},
+{"value": "b1"}
+],
+[
+{"value": "0"},
+{"value": "1d9c"},
+{"value": "1156"},
+{"value": "100d"},
+{"value": "8f"}
+],
+[
+{"value": "0"},
+{"value": "1ec6"},
+{"value": "144"},
+{"value": "3ae1"},
+{"value": "a2"}
+],
+[
+{"value": "0"},
+{"value": "101"},
+{"value": "26c8"},
+{"value": "793"},
+{"value": "63"}
+],
+[
+{"value": "0"},
+{"value": "f14"},
+{"value": "3ddd"},
+{"value": "2435"},
+{"value": "e2"}
+],
+[
+{"value": "0"},
+{"value": "c8a"},
+{"value": "1461"},
+{"value": "3cfa"},
+{"value": "80"}
+],
+[
+{"value": "0"},
+{"value": "5f5"},
+{"value": "18db"},
+{"value": "1593"},
+{"value": "c0"}
+],
+[
+{"value": "0"},
+{"value": "d84"},
+{"value": "3ce2"},
+{"value": "1775"},
+{"value": "cf"}
+]
+]}

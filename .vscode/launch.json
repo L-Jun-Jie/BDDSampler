@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug CUDD Program",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/cudd_test",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                }
+            ],
+            "preLaunchTask": "build cudd", // Corresponds to the label in tasks.json
+            "postDebugTask": "clean cudd" // Optional: clean up after debug session
+        }
+    ]
+}

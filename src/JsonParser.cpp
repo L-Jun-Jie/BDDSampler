@@ -1,0 +1,342 @@
+#include "JsonParser.h"
+
+#include <fstream>
+
+namespace jsons {
+// 转换变量列表
+inline void from_json(const json& j, Var& var) {
+    j.at("id").get_to(var.id);
+    j.at("name").get_to(var.name);
+    j.at("signed").get_to(var.is_sign);
+    j.at("bit_width").get_to(var.bit_width);
+}
+
+inline Operation string_to_Operation(const std::string op_str) {
+    if (op_str == "VAR") {
+        return Operation::VAR;
+    } else if (op_str == "CONST") {
+        return Operation::CONST;
+    } else if (op_str == "LOG_NEG") {
+        return Operation::LOG_NEG;
+    } else if (op_str == "BIT_NEG") {
+        return Operation::BIT_NEG;
+    } else if (op_str == "MINUS") {
+        return Operation::MINUS;
+    } else if (op_str == "ADD") {
+        return Operation::ADD;
+    } else if (op_str == "SUB") {
+        return Operation::SUB;
+    } else if (op_str == "MUL") {
+        return Operation::MUL;
+    } else if (op_str == "DIV") {
+        return Operation::DIV;
+    } else if (op_str == "LOG_AND") {
+        return Operation::LOG_AND;
+    } else if (op_str == "LOG_OR") {
+        return Operation::LOG_OR;
+    } else if (op_str == "EQ") {
+        return Operation::EQ;
+    } else if (op_str == "NEQ") {
+        return Operation::NEQ;
+    } else if (op_str == "LT") {
+        return Operation::LT;
+    } else if (op_str == "LTE") {
+        return Operation::LTE;
+    } else if (op_str == "GT") {
+        return Operation::GT;
+    } else if (op_str == "GTE") {
+        return Operation::GTE;
+    } else if (op_str == "BIT_AND") {
+        return Operation::BIT_AND;
+    } else if (op_str == "BIT_OR") {
+        return Operation::BIT_OR;
+    } else if (op_str == "BIT_XOR") {
+        return Operation::BIT_XOR;
+    } else if (op_str == "RSHIFT") {
+        return Operation::RSHIFT;
+    } else if (op_str == "LSHIFT") {
+        return Operation::LSHIFT;
+    } else if (op_str == "IMPLY") {
+        return Operation::IMPLY;
+    } else {
+        return Operation::NOT_SUP;
+    }
+}
+// 先根转换约束列表
+inline void from_json(const json& j, AST& ast) {
+    j.at("op").get_to(ast.op_str);
+    ast.op = string_to_Operation(ast.op_str);
+
+    switch (ast.op) {
+        case VAR:
+            j.at("id").get_to(ast.id);
+            ast.value = "";
+            ast.lhs = nullptr;
+            ast.rhs = nullptr;
+            break;
+        case CONST:
+            j.at("value").get_to(ast.value);
+            ast.id = -1;
+            ast.lhs = nullptr;
+            ast.rhs = nullptr;
+            break;
+        case LOG_NEG:
+        case BIT_NEG:
+        case MINUS: {
+            ast.id = -1;
+            ast.value = "";
+            ast.rhs = nullptr;
+            auto left_ast = new AST();
+            from_json(j["lhs_expression"], *left_ast);
+            ast.lhs = left_ast;
+            break;
+        }
+        case ADD:
+        case SUB:
+        case MUL:
+        case DIV:
+        case LOG_AND:
+        case LOG_OR:
+        case EQ:
+        case NEQ:
+        case LT:
+        case LTE:
+        case GT:
+        case GTE:
+        case BIT_AND:
+        case BIT_OR:
+        case BIT_XOR:
+        case RSHIFT:
+        case LSHIFT:
+        case IMPLY: {
+            ast.id = -1;
+            ast.value = "";
+            auto left_ast = new AST();
+            auto right_ast = new AST();
+            from_json(j["lhs_expression"], *left_ast);
+            ast.lhs = left_ast;
+            from_json(j["rhs_expression"], *right_ast);
+            ast.rhs = right_ast;
+            break;
+        }
+        default:
+            std::cout << "Formulas containing illegal data operations: "
+                      << ast.op_str << std::endl;
+            exit(0);
+    }
+}
+}  // namespace jsons
+
+void JsonParser::bottomUp(jsons::AST* t, const vars_vector& vars) {
+    switch (t->op) {
+        case ADD:
+        case SUB:
+        case MUL:
+        case DIV:
+        case BIT_AND:
+        case BIT_OR:
+        case BIT_XOR:
+            bottomUp(t->lhs, vars);  // 计算左表达式位宽
+            bottomUp(t->rhs, vars);  // 计算右表达式位宽
+            if (t->lhs->bit_width >= t->rhs->bit_width)
+                t->bit_width = t->lhs->bit_width;
+            else
+                t->bit_width = t->rhs->bit_width;
+            break;
+        case EQ:
+        case NEQ:
+        case LT:
+        case LTE:
+        case GT:
+        case GTE:
+        case LOG_AND:
+        case LOG_OR:
+        case IMPLY:
+            bottomUp(t->lhs, vars);
+            bottomUp(t->rhs, vars);
+            t->bit_width = 1;
+            break;
+        case LSHIFT:
+        case RSHIFT:
+            bottomUp(t->lhs, vars);
+            bottomUp(t->rhs, vars);
+            t->bit_width = t->lhs->bit_width;
+            break;
+        case LOG_NEG:
+            bottomUp(t->lhs, vars);
+            t->bit_width = 1;
+            break;
+        case BIT_NEG:
+        case MINUS:
+            bottomUp(t->lhs, vars);
+            t->bit_width = t->lhs->bit_width;
+            break;
+        case VAR:
+            t->bit_width = vars[t->id].bit_width;
+            break;
+        case CONST: {
+            std::string tmp_width;
+            for (auto c : t->value) {
+                if (c == '\'' || c == 'h') {
+                    break;
+                }
+                tmp_width += c;
+            }
+            // 获得常量位宽
+            t->bit_width = stoi(tmp_width);
+            break;
+        }
+        default:
+            std::cout << "The OP is not yet supported !" << std::endl;
+            exit(0);
+            break;
+    }
+}
+
+void JsonParser::topDown(jsons::AST* t, const vars_vector& vars) {
+    switch (t->op) {
+        case VAR:
+        case CONST:
+            return;
+            break;
+        case ADD:
+        case SUB:
+        case MUL:
+        case DIV:
+        case BIT_AND:
+        case BIT_OR:
+        case BIT_XOR:
+            if (t->lhs->bit_width != t->bit_width)
+                t->lhs->bit_width = t->bit_width;
+            topDown(t->lhs, vars);  // 统一左侧子表达式位宽
+            if (t->rhs->bit_width != t->bit_width)
+                t->rhs->bit_width = t->bit_width;
+            topDown(t->rhs, vars);  // 统一右侧子表达式位宽
+            break;
+        case EQ:
+        case NEQ:
+        case LT:
+        case LTE:
+        case GT:
+        case GTE:
+            if (t->lhs->bit_width < t->rhs->bit_width)
+                t->lhs->bit_width = t->rhs->bit_width;
+            if (t->lhs->bit_width > t->rhs->bit_width)
+                t->rhs->bit_width = t->lhs->bit_width;
+            topDown(t->lhs, vars);
+            topDown(t->rhs, vars);
+            break;
+        case LOG_AND:
+        case LOG_OR:
+        case IMPLY:
+            topDown(t->lhs, vars);
+            topDown(t->rhs, vars);
+            break;
+        case LOG_NEG:
+            topDown(t->lhs, vars);
+            break;
+        case LSHIFT:
+        case RSHIFT:
+            t->lhs->bit_width = t->bit_width;
+            topDown(t->lhs, vars);
+            topDown(t->rhs, vars);
+            break;
+        case BIT_NEG:
+        case MINUS:
+            t->lhs->bit_width = t->bit_width;
+            topDown(t->lhs, vars);
+            break;
+        default:
+            std::cout << "The OP is not yet supported !" << std::endl;
+    }
+}
+
+void JsonParser::printAST(jsons::AST* t, const vars_vector& vars) {
+    if (t != nullptr) {
+        printAST(t->lhs, vars);
+        switch (t->op) {
+            case VAR:
+                printf("%d'(var_%d)", t->bit_width, t->id);
+                break;
+            case CONST:
+                printf("%d'(%s)", t->bit_width, t->value.c_str());
+                break;
+            case LOG_NEG:
+            case BIT_NEG:
+            case MINUS:
+                printf(" %d'(%s)", t->bit_width, t->op_str.c_str());
+                break;
+            case ADD:
+            case SUB:
+            case MUL:
+            case DIV:
+            case LOG_AND:
+            case LOG_OR:
+            case EQ:
+            case NEQ:
+            case LT:
+            case LTE:
+            case GT:
+            case GTE:
+            case BIT_AND:
+            case BIT_OR:
+            case BIT_XOR:
+            case RSHIFT:
+            case LSHIFT:
+            case IMPLY:
+                printf(" %d'(%s) ", t->bit_width, t->op_str.c_str());
+                break;
+            default:
+                std::cout << "Formulas containing illegal data operations: "
+                          << t->op_str << std::endl;
+                exit(0);
+        }
+        printAST(t->rhs, vars);
+    }
+}
+
+// 解析并输出json文件
+void JsonParser::inputParse() {
+    json j;
+    std::fstream jfile(inputFile);
+    std::cout << inputFile << std::endl;
+    if (!jfile.is_open()) {
+        std::cout << "Fail to open file!" << std::endl;
+        return;
+    }
+    jfile >> j;
+
+    // 读取变量列表
+    std::cout << "variable_list: " << std::endl;
+    size_t vars_size = j["variable_list"].size();
+    std::cout << "vars_list_size = " << vars_size << std::endl;
+    for (int i = 0; i < vars_size; i++) {
+        vars.push_back(j["variable_list"][i]);
+        printf("variable%d：id=%d, name=%s, signed=%d, bit_width=%d\n",
+               i, vars[i].id, vars[i].name.c_str(), vars[i].is_sign, vars[i].bit_width);
+    }
+    std::cout << std::endl;
+
+    // 读取约束列表
+    size_t constrains_size = j["constraint_list"].size();
+    for (int i = 0; i < constrains_size; i++) {
+        asts.push_back(j["constraint_list"][i]);
+    }
+
+    // 统一表达式位宽
+    for (auto& t : asts) {
+        bottomUp(&t, vars);
+        topDown(&t, vars);
+    }
+
+    // 输出约束
+    std::cout << "constraint_list: " << std::endl;
+    std::cout << "constraint_list_size = " << constrains_size << std::endl;
+
+    for (int i = 0; i < constrains_size; i++) {
+        std::cout << "constraint" << i << ": ";
+        printAST(&asts[i], vars);
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+}
