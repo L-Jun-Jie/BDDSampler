@@ -4,11 +4,12 @@
 #include <iostream>
 #include <string>
 
-#include "BitVec.h"
 #include "MyEnums.h"
 #include "cuddObj.hh"
 #include "json.hpp"
+
 using nlohmann::json;
+using myEnums::Operation;
 namespace jsons {
 class Var {
    public:

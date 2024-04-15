@@ -2,6 +2,8 @@
 
 #include <fstream>
 
+using myEnums::Operation;
+
 namespace jsons {
 // 转换变量列表
 inline void from_json(const json& j, Var& var) {
@@ -68,21 +70,21 @@ inline void from_json(const json& j, AST& ast) {
     ast.op = string_to_Operation(ast.op_str);
 
     switch (ast.op) {
-        case VAR:
+        case Operation::VAR:
             j.at("id").get_to(ast.id);
             ast.value = "";
             ast.lhs = nullptr;
             ast.rhs = nullptr;
             break;
-        case CONST:
+        case Operation::CONST:
             j.at("value").get_to(ast.value);
             ast.id = -1;
             ast.lhs = nullptr;
             ast.rhs = nullptr;
             break;
-        case LOG_NEG:
-        case BIT_NEG:
-        case MINUS: {
+        case Operation::LOG_NEG:
+        case Operation::BIT_NEG:
+        case Operation::MINUS: {
             ast.id = -1;
             ast.value = "";
             ast.rhs = nullptr;
@@ -91,24 +93,24 @@ inline void from_json(const json& j, AST& ast) {
             ast.lhs = left_ast;
             break;
         }
-        case ADD:
-        case SUB:
-        case MUL:
-        case DIV:
-        case LOG_AND:
-        case LOG_OR:
-        case EQ:
-        case NEQ:
-        case LT:
-        case LTE:
-        case GT:
-        case GTE:
-        case BIT_AND:
-        case BIT_OR:
-        case BIT_XOR:
-        case RSHIFT:
-        case LSHIFT:
-        case IMPLY: {
+        case Operation::ADD:
+        case Operation::SUB:
+        case Operation::MUL:
+        case Operation::DIV:
+        case Operation::LOG_AND:
+        case Operation::LOG_OR:
+        case Operation::EQ:
+        case Operation::NEQ:
+        case Operation::LT:
+        case Operation::LTE:
+        case Operation::GT:
+        case Operation::GTE:
+        case Operation::BIT_AND:
+        case Operation::BIT_OR:
+        case Operation::BIT_XOR:
+        case Operation::RSHIFT:
+        case Operation::LSHIFT:
+        case Operation::IMPLY: {
             ast.id = -1;
             ast.value = "";
             auto left_ast = new AST();
@@ -129,13 +131,13 @@ inline void from_json(const json& j, AST& ast) {
 
 void JsonParser::bottomUp(jsons::AST* t, const vars_vector& vars) {
     switch (t->op) {
-        case ADD:
-        case SUB:
-        case MUL:
-        case DIV:
-        case BIT_AND:
-        case BIT_OR:
-        case BIT_XOR:
+        case Operation::ADD:
+        case Operation::SUB:
+        case Operation::MUL:
+        case Operation::DIV:
+        case Operation::BIT_AND:
+        case Operation::BIT_OR:
+        case Operation::BIT_XOR:
             bottomUp(t->lhs, vars);  // 计算左表达式位宽
             bottomUp(t->rhs, vars);  // 计算右表达式位宽
             if (t->lhs->bit_width >= t->rhs->bit_width)
@@ -143,38 +145,38 @@ void JsonParser::bottomUp(jsons::AST* t, const vars_vector& vars) {
             else
                 t->bit_width = t->rhs->bit_width;
             break;
-        case EQ:
-        case NEQ:
-        case LT:
-        case LTE:
-        case GT:
-        case GTE:
-        case LOG_AND:
-        case LOG_OR:
-        case IMPLY:
+        case Operation::EQ:
+        case Operation::NEQ:
+        case Operation::LT:
+        case Operation::LTE:
+        case Operation::GT:
+        case Operation::GTE:
+        case Operation::LOG_AND:
+        case Operation::LOG_OR:
+        case Operation::IMPLY:
             bottomUp(t->lhs, vars);
             bottomUp(t->rhs, vars);
             t->bit_width = 1;
             break;
-        case LSHIFT:
-        case RSHIFT:
+        case Operation::LSHIFT:
+        case Operation::RSHIFT:
             bottomUp(t->lhs, vars);
             bottomUp(t->rhs, vars);
             t->bit_width = t->lhs->bit_width;
             break;
-        case LOG_NEG:
+        case Operation::LOG_NEG:
             bottomUp(t->lhs, vars);
             t->bit_width = 1;
             break;
-        case BIT_NEG:
-        case MINUS:
+        case Operation::BIT_NEG:
+        case Operation::MINUS:
             bottomUp(t->lhs, vars);
             t->bit_width = t->lhs->bit_width;
             break;
-        case VAR:
+        case Operation::VAR:
             t->bit_width = vars[t->id].bit_width;
             break;
-        case CONST: {
+        case Operation::CONST: {
             std::string tmp_width;
             for (auto c : t->value) {
                 if (c == '\'' || c == 'h') {
@@ -195,17 +197,17 @@ void JsonParser::bottomUp(jsons::AST* t, const vars_vector& vars) {
 
 void JsonParser::topDown(jsons::AST* t, const vars_vector& vars) {
     switch (t->op) {
-        case VAR:
-        case CONST:
+        case Operation::VAR:
+        case Operation::CONST:
             return;
             break;
-        case ADD:
-        case SUB:
-        case MUL:
-        case DIV:
-        case BIT_AND:
-        case BIT_OR:
-        case BIT_XOR:
+        case Operation::ADD:
+        case Operation::SUB:
+        case Operation::MUL:
+        case Operation::DIV:
+        case Operation::BIT_AND:
+        case Operation::BIT_OR:
+        case Operation::BIT_XOR:
             if (t->lhs->bit_width != t->bit_width)
                 t->lhs->bit_width = t->bit_width;
             topDown(t->lhs, vars);  // 统一左侧子表达式位宽
@@ -213,12 +215,12 @@ void JsonParser::topDown(jsons::AST* t, const vars_vector& vars) {
                 t->rhs->bit_width = t->bit_width;
             topDown(t->rhs, vars);  // 统一右侧子表达式位宽
             break;
-        case EQ:
-        case NEQ:
-        case LT:
-        case LTE:
-        case GT:
-        case GTE:
+        case Operation::EQ:
+        case Operation::NEQ:
+        case Operation::LT:
+        case Operation::LTE:
+        case Operation::GT:
+        case Operation::GTE:
             if (t->lhs->bit_width < t->rhs->bit_width)
                 t->lhs->bit_width = t->rhs->bit_width;
             if (t->lhs->bit_width > t->rhs->bit_width)
@@ -226,23 +228,23 @@ void JsonParser::topDown(jsons::AST* t, const vars_vector& vars) {
             topDown(t->lhs, vars);
             topDown(t->rhs, vars);
             break;
-        case LOG_AND:
-        case LOG_OR:
-        case IMPLY:
+        case Operation::LOG_AND:
+        case Operation::LOG_OR:
+        case Operation::IMPLY:
             topDown(t->lhs, vars);
             topDown(t->rhs, vars);
             break;
-        case LOG_NEG:
+        case Operation::LOG_NEG:
             topDown(t->lhs, vars);
             break;
-        case LSHIFT:
-        case RSHIFT:
+        case Operation::LSHIFT:
+        case Operation::RSHIFT:
             t->lhs->bit_width = t->bit_width;
             topDown(t->lhs, vars);
             topDown(t->rhs, vars);
             break;
-        case BIT_NEG:
-        case MINUS:
+        case Operation::BIT_NEG:
+        case Operation::MINUS:
             t->lhs->bit_width = t->bit_width;
             topDown(t->lhs, vars);
             break;
@@ -255,35 +257,35 @@ void JsonParser::printAST(jsons::AST* t, const vars_vector& vars) {
     if (t != nullptr) {
         printAST(t->lhs, vars);
         switch (t->op) {
-            case VAR:
+            case Operation::VAR:
                 printf("%d'(var_%d)", t->bit_width, t->id);
                 break;
-            case CONST:
+            case Operation::CONST:
                 printf("%d'(%s)", t->bit_width, t->value.c_str());
                 break;
-            case LOG_NEG:
-            case BIT_NEG:
-            case MINUS:
+            case Operation::LOG_NEG:
+            case Operation::BIT_NEG:
+            case Operation::MINUS:
                 printf(" %d'(%s)", t->bit_width, t->op_str.c_str());
                 break;
-            case ADD:
-            case SUB:
-            case MUL:
-            case DIV:
-            case LOG_AND:
-            case LOG_OR:
-            case EQ:
-            case NEQ:
-            case LT:
-            case LTE:
-            case GT:
-            case GTE:
-            case BIT_AND:
-            case BIT_OR:
-            case BIT_XOR:
-            case RSHIFT:
-            case LSHIFT:
-            case IMPLY:
+            case Operation::ADD:
+            case Operation::SUB:
+            case Operation::MUL:
+            case Operation::DIV:
+            case Operation::LOG_AND:
+            case Operation::LOG_OR:
+            case Operation::EQ:
+            case Operation::NEQ:
+            case Operation::LT:
+            case Operation::LTE:
+            case Operation::GT:
+            case Operation::GTE:
+            case Operation::BIT_AND:
+            case Operation::BIT_OR:
+            case Operation::BIT_XOR:
+            case Operation::RSHIFT:
+            case Operation::LSHIFT:
+            case Operation::IMPLY:
                 printf(" %d'(%s) ", t->bit_width, t->op_str.c_str());
                 break;
             default:

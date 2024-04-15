@@ -1,0 +1,50 @@
+{
+    "variable_list": [
+        {
+            "id": 0,
+            "name": "var_0",
+            "signed": false,
+            "bit_width": 13
+        },
+        {
+            "id": 1,
+            "name": "var_1",
+            "signed": false,
+            "bit_width": 13
+        },
+        {
+            "id": 2,
+            "name": "var_2",
+            "signed": false,
+            "bit_width": 14
+        },
+        {
+            "id": 3,
+            "name": "var_3",
+            "signed": false,
+            "bit_width": 14
+        },
+        {
+            "id": 4,
+            "name": "var_4",
+            "signed": false,
+            "bit_width": 8
+        }
+    ],
+    "constraint_list": [
+        {
+            "op": "LOG_AND",
+            "lhs_expression": {
+                "op": "LOG_NEG",
+                "lhs_expression": {
+                    "op": "VAR",
+                    "id": 0
+                }
+            },
+            "rhs_expression": {
+                "op": "VAR",
+                "id": 3
+            }
+        }
+    ]
+}
